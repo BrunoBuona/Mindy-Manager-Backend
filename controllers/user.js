@@ -1,3 +1,4 @@
+const { options } = require('joi')
 const User = require('../models/User')
 
 const controller = {
@@ -15,24 +16,28 @@ const controller = {
     }
   },
   read: async (req, res, next) => {
-    let { id } = req.params
+    let id = req.params.id;
     try {
-      let userid = await User.find({discordTag: `${id}`})
-      if(userid){
-      res.status(200).json({
-        response: userid,
-        success: true,
-        message: 'Usuario encontrado'
-      })}
-      else{
+        let user = await User.find({ discordTag: id })
+        if (user) {
+            res.status(200).json({
+                success: true,
+                message: 'the user was found successfully!.',
+                data: user,
+            })
+        } else {
+            res.status(404).json({
+                success: false,
+                message: 'the user was not found.',
+            })
+        }
+    } catch (error) {
         res.status(400).json({
-        success: false,
-        message: 'Usuario no encontrado'
-      })}
-    } catch (err) {
-      next(err)
+            success: false,
+            message: error
+        })
     }
-  },
+}
 }
 
 module.exports = controller;
