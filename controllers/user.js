@@ -18,7 +18,7 @@ const controller = {
   read: async (req, res, next) => {
     let id = req.params.id;
     try {
-        let user = await User.find({ discordTag: id })
+        let user = await User.findOne({ discordTag: id })
         if (user) {
             res.status(200).json({
                 success: true,
