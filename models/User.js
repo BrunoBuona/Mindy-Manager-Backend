@@ -7,7 +7,7 @@ const schema = new mongoose.Schema({
     cohort: { type: String, required: true },
     email: { type: String, required: true },
     discordTag: { type: String, required: true },
-    strikes: { type: Number}
+    strikes: { type: Number, required: true}
 })
 const User = mongoose.model('users', schema)
 
