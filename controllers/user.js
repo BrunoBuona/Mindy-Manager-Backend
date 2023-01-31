@@ -5,6 +5,7 @@ const controller = {
   create: async (req, res, next) => {
     let { name, lastName, role, email, discordTag, cohort } = req.body;
     let strikes = 0;
+    reports=[];
     try {
       let newUser = await User.create({
         name,
@@ -14,6 +15,7 @@ const controller = {
         discordTag,
         cohort,
         strikes,
+        reports,
       });
       res.status(201).json({
         response: newUser,
